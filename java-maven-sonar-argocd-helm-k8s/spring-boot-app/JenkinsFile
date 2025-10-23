@@ -12,7 +12,7 @@ pipeline {
     stage('Checkout') {
       steps {
         sh 'echo passed'
-        git branch: 'main', url: 'https://github.com/vvramadm/Jenkins-main.git'
+        git branch:'main', url:'https://github.com/vvramadm/Jenkins-main.git'
       }
     }
     stage('Build and Test') {

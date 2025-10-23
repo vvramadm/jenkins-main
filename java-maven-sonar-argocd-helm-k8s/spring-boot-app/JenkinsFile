@@ -2,8 +2,7 @@ pipeline {
   agent {
     docker {
       image 'docker.io/library/maven:sapmachine'
-      // add SELinux label and allow privileged if necessary
-      args '--user root -v /var/run/docker.sock:/var/run/docker.sock:z --privileged -v /var/lib/jenkins/.m2:/root/.m2:rw'
+      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
     }
   }
   stages {

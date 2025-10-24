@@ -1,11 +1,12 @@
 pipeline {
-  agent {
+  agent
+//{
   
-   docker { 
-         image 'docker.io/vvram143/maven-ram-agent:v1'
-            args '-v $HOME/.m2:/root/.m2'
+  // docker { 
+  //       image 'docker.io/vvram143/maven-ram-agent:v1'
+  //          args '-v $HOME/.m2:/root/.m2'
 
- }
+// }
  
 }
   stages {

@@ -35,7 +35,7 @@ pipeline {
     }
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "vvram143/ultimate-cicd:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "docker.io/vvram143/ultimate-cicd:${BUILD_NUMBER}"
         REGISTRY_CREDENTIALS = credentials('docker-cred')
       }
       steps {

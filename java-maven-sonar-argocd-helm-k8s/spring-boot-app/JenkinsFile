@@ -58,7 +58,7 @@ stage('Get Previous Build Number') {
                     ).trim()
 
                     // Store it in a variable
-                    env.PREVIOUS_BUILD_NUMBER = response.value
+                    env.PREVIOUS_BUILD_NUMBER = response.number
                     echo "Previous build number: ${env.PREVIOUS_BUILD_NUMBER}"
                 }
             }

@@ -52,6 +52,7 @@ pipeline {
         environment {
             GIT_REPO_NAME = "Jenkins-main"
             GIT_USER_NAME = "vvramadm"
+            LAST_SUCCESS_BUILD_NUMBER = 'http://192.168.97.194:8080/job/jenkins-maven-sonar/lastStableBuild/buildNumber'
         }
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
@@ -59,7 +60,7 @@ pipeline {
                     git config user.email "vvramadm@gmail.com"
                     git config user.name "vvramadm"
                     BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s/${currentBuild.previousBuild.number}/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+                    sed -i "s/${LAST_SUCCESS_BUILD_NUMBER}/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main

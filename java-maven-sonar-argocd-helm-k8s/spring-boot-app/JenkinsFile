@@ -52,7 +52,7 @@ pipeline {
         environment {
             GIT_REPO_NAME = "Jenkins-main"
             GIT_USER_NAME = "vvramadm"
-            LAST_SUCCESS_BUILD_NUMBER = ${urlOutput}
+            LAST_SUCCESS_BUILD_NUMBER = ${Output}
         }
         steps {
                script {

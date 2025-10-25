@@ -52,9 +52,29 @@ pipeline {
         environment {
             GIT_REPO_NAME = "Jenkins-main"
             GIT_USER_NAME = "vvramadm"
-            LAST_SUCCESS_BUILD_NUMBER = 'http://192.168.97.194:8080/job/jenkins-maven-sonar/lastStableBuild/buildNumber'
+            LAST_SUCCESS_BUILD_NUMBER = ${urlOutput}
         }
         steps {
+               script {
+                    // Make an HTTP GET request and store the response body in a variable
+                    def response = httpRequest(
+                        url: 'http://192.168.97.194:8080/job/jenkins-maven-sonar/lastStableBuild/buildNumber', // Replace with your target URL
+                        httpMode: 'GET',
+                        customHeaders: [[name: 'Accept', value: 'application/json']], // Optional: Add headers
+                        // If the response is JSON, you might want to parse it
+                        // contentType: 'APPLICATION_JSON',
+                        // responseHandle: 'NONE' // Or 'LEAVE_OPEN_ON_ERROR' or 'TEXT'
+                    )
+
+                    // The response.content variable holds the body of the HTTP response
+                    def urlOutput = response.content
+
+                    echo "URL Output: ${urlOutput}"
+
+                    // If the content is JSON, you can parse it
+                    // def jsonData = readJSON text: urlOutput
+                    // echo "Parsed JSON value: ${jsonData.someKey}"
+
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
                     git config user.email "vvramadm@gmail.com"
